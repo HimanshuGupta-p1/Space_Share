@@ -1,0 +1,144 @@
+.glass-panel {
+    color: #fff;
+    margin: 20px auto;
+    background-color: rgba(34, 29, 29, 0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    width: 100%;
+    border-radius: 15px;
+    padding: 25px;
+    backdrop-filter: blur(10px);
+  }
+
+  .glass-panel h2{
+    font-size: medium;
+  }
+  
+  .glass-button {
+    display: inline-block;
+    padding: 24px 32px;
+    border: 0;
+    text-decoration: none;
+    border-radius: 15px;
+    background-color: rgba(146, 11, 11, 0.1);
+    border: 1px solid rgba(255,255,255,0.1);
+    backdrop-filter: blur(30px);
+    color: rgba(43, 40, 40, 0.8);
+    font-size: 14px;
+    letter-spacing: 2px;
+    cursor: pointer;
+    text-transform: uppercase;
+  }
+  
+  .glass-button:hover {
+    background-color: rgba(15, 1, 1, 0.921);
+  }
+  
+  body {
+  
+    background-size: cover;
+    text-align: center;
+    font-family: 'Open Sans', sans-serif;
+  }
+  
+  .glass-panel {  
+    max-width: 600px;
+  }
+  
+  .glass-button {
+    margin: 15px;
+    margin-top: 40px;
+  }
+  
+  h1, h1 a {
+    min-height: 120px;
+    width: 90%;
+    max-width: 500px;
+    vertical-align: middle;
+    text-align: center;
+    margin: 0 auto;
+    text-decoration: none;
+    color: #fff;
+    padding-top: 40px;
+    color: rgba(255,255,255,0.8);
+  }
+  
+  p {
+    width: 80%;
+    margin: 0 auto;
+    padding-bottom: 30px;
+    color: rgba(255,255,255,0.6);
+  }
+  
+  body {
+      background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+      background-size: 400% 400%;
+      animation: gradient 15s ease infinite;
+      height: 100vh;
+  }
+  
+  @keyframes gradient {
+      0% {
+          background-position: 0% 50%;
+      }
+      50% {
+          background-position: 100% 50%;
+      }
+      100% {
+          background-position: 0% 50%;
+      }
+  }
+  
+  .main{
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  button
+  {
+    color: red
+  }
+
+
+  label{
+    color: white;
+  }
+  .uploadimage{
+    height: 45px;
+    width: 70px;
+    background-color: rgb(38, 202, 131);
+    text-align: center;
+    border-radius: 15px;
+  }
+  
+  .app {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background: linear-gradient(
+        rgba(255, 255, 255, 0.7),
+        rgba(255, 255, 255, 0.3)
+      ),
+      url("https://images.pexels.com/photos/114979/pexels-photo-114979.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500");
+    background-size: cover;
+    background-position: center;
+  }
+  
+  .glass-panel form{
+      background-color: white;
+      padding: 0px 60px;
+      border-radius: 10px;
+  }
+  
+  .glass-panel h1 {
+      color: rgb(77, 1, 77);
+      text-align: center;
+  }
+
+  .imag{
+    margin-left: 90px;
+   border-radius: 10px;
+   padding-bottom: 100px;
+   padding-left: 10px;
+   padding-top: 20px;
+  }

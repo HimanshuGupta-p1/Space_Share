@@ -1,20 +1,70 @@
-# Space Share - A Disk Space Renting System
-A disk space renting system using blockchain technology is a platform that allows users
-to rent out or lease unused storage space on their devices, such as computers, to
-other users who need it. The platform is built on a blockchain network, which provides
-secure and transparent transactions between the renters and the providers.
+# Getting Started with Create React App
 
-The blockchain-based disk space renting system can solve the problem of unused storage
-space, which is a prevalent issue in today's digital world. Many users have unused storage
-space on their devices, while others need extra storage space for their data. The platform
-can connect these users and allow them to transact in a decentralized, secure, and
-efficient manner. The system works by creating a marketplace where users can list their
-available storage space and set their rental prices. Other users who need storage space can
-browse the listings and rent the space they need for a specified period. The rental
-transactions are recorded on the blockchain, providing transparency and security for all
-parties involved.
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Available Scripts
 
-<p align="center">
-  <img src="https://github.com/HimanshuGupta-p1/Space_Share/assets/91981713/42abcee7-26d2-473c-8e54-33aa58a48d86" alt="Logo"/>
-</p>
+In the project directory, you can run:
+
+### `npm start`
+
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+
+The page will reload when you make changes.\
+You may also see any lint errors in the console.
+
+### `npm test`
+
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+
+### `npm run build`
+
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
+
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
+
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+
+### `npm run eject`
+
+**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+
+If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+
+You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+
+## Learn More
+
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+
+To learn React, check out the [React documentation](https://reactjs.org/).
+
+### Code Splitting
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+
+### Analyzing the Bundle Size
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+
+### Making a Progressive Web App
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+
+### Advanced Configuration
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+
+### Deployment
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+
+### `npm run build` fails to minify
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
