@@ -22,7 +22,7 @@ const Home = () => {
                             [
                                 'Disk Space Rental System 💿',
                                 2000,
-                                'Secure 🔒',
+                                'Secure',
                                 2000,
                                 'Blockchain',
                                 2000,
