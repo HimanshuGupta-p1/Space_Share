@@ -1,13 +1,94 @@
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
+	margin: 0;
+	padding: 0;
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+	  'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+	  sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	min-height: 100%;
+  }
+  
+  code {
+	font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+	  monospace;
+  }
+  
+  /* .app-header {
+	text-align: center;
+	margin-bottom: 50px;
+  }
+  
+  .app {
+	margin: 30px;
+	flex-direction: column;
+	display: flex;
+	justify-content: center;
+	align-items: center;	
+  }
+  
+  .app-wrapper {
+	text-align: center;
+  }
+  
+  .app-wrapper img {
+	width: 360px;
+  }
+  
+  button.app-buttons__login {
+	display: flex;
+	margin: auto;
+  }
+  
+  button {
+	display: block;
+	border-radius: 40px;
+	font-size: 16px;
+	font-weight: 600;
+	padding: 16px 30px;
+	box-shadow: none;
+	border: none;
+	cursor: pointer;
+  }
+  
+  button.app-buttons__login {
+	margin-top: 30px;
+	background-color: #037dd6;
+	color: #fff;
+  }
+  
+  button.app-buttons__login:hover {
+	background-color: #0f8ee9;
+	color: #fff;
+  }
+  
+  .app-details h2 {
+	font-size: 24px;
+	font-weight: 700;
+	color: rgb(0 187 0);
+  }
+  
+  .app-details {
+	display: flex;
+	justify-content: center;
+	align-items: flex-start;
+	flex-direction: column;
+	border: 1px solid #e7e7e7;
+	border-radius: 3px;
+	padding: 20px;
+  }
+  
+  button.app-buttons__logout{
+	margin-top: 40px;
+  }
+  
+  .app-account span, .app-balance span, .app-connectionid span {
+	font-size: 16px;
+	font-weight: 700;
+	color: #000000;
+	padding-right: 5px;
+  }
+  
+  .app-details div{
+	margin-bottom: 5px;
+  } */
