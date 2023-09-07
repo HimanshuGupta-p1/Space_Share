@@ -1,0 +1,177 @@
+.contains{
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+	height: 80%;
+	position: relative;
+	
+}
+
+.app .contains .section-1 {
+	font-size: 30px;
+	margin-top: 20px;
+	margin-left: 80px;
+	text-align: center;
+	color: white;
+    text-shadow: blue 5px 5px 10px;
+	
+}
+
+
+.button1{
+    margin-top: 30px;
+	text-align: center;
+	/* margin-left: 50px; */
+		
+}
+.app-buttons__login{
+	padding: 10px 20px;
+	border-radius: 20px;
+	border: 2px solid rgba(255,255,255,0.7);
+	cursor: pointer;
+	background: #037dd6;
+	margin: 10px 10px 10px 10px;
+	
+}
+
+.app-buttons__login:hover{
+	background: #fff;
+	color: #000;
+}
+
+.box-1{
+    height: auto;
+    width: 50rem;
+    padding: 0,20px;
+    background:transparent;
+    z-index: 10;
+    display: flex;
+    position: relative;
+    border-radius: 20px;
+	border: 2px solid rgba(255,255,255,0.7);
+    backdrop-filter: blur(25px);
+    box-shadow: -15px 17px 17px rgba(255,255,255,0.25);
+}
+
+
+
+
+
+  .app {
+	margin-top: 100px;
+	margin-bottom: 100px;
+	margin-left: 150px;
+	margin-right: 150px;
+	padding-top: 10px;
+	flex-direction: column;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+    font-size: 20px;
+	
+    
+  }
+.logom{
+	height: 25px;
+	width: auto;
+	margin-right: 6px;
+
+}
+
+button.app-buttons__login {
+	font-size: 20px;
+	justify-content: center;
+	align-items: center;
+}
+
+.nameimg{
+		width: 450px;
+		height:400px;
+		margin-left: 60px;
+	}
+
+	.vert-move {
+		-webkit-animation: mover 1s infinite  alternate;
+		animation: mover 1s infinite  alternate;
+	}
+
+	@keyframes mover {
+		0% { transform: translateY(0); }
+		100% { transform: translateY(-20px); }
+	}
+
+	.glow{
+		position: relative;
+		width: 450px;
+		height: 400px;
+		border-radius: 50%;
+		
+		  
+	  }
+
+
+	  
+
+	  
+
+  
+
+  
+  /* button.app-buttons__login {
+	display: flex;
+	margin: auto;
+  }
+   */
+
+  
+  /* button.app-buttons__login {
+	margin-top: 10px;
+	background-color: #037dd6;
+	color: #fff;
+  }
+  
+  button.app-buttons__login:hover {
+	background-color: #0f8ee9;
+	color: #fff;
+  } */
+  
+  .app-details h2 {
+	font-size: 25px;
+	font-weight: 700;
+	color: rgb(0 187 0);
+  }
+  
+  .app-details {
+	display: flex;
+	justify-content: center;
+	align-items: flex-start;
+	flex-direction: column;
+	border: 1px solid #e7e7e7;
+	border-radius: 3px;
+	padding: 20px;
+	margin-top: 10px;
+  }
+  
+  button.app-buttons__logout{
+	padding: 10px 20px;
+	border-radius: 20px;
+	border: 2px solid rgba(255,255,255,0.7);
+	cursor: pointer;
+	background: #037dd6;
+	margin: 10px 10px 10px 10px;
+  }
+  button.app-buttons__logout:hover{
+	background: #fff;
+	color: #000;
+  }
+  
+  .app-account span, .app-balance span, .app-connectionid span {
+	font-size: 16px;
+	font-weight: 700;
+	color: #000000;
+	padding-right: 5px;
+  }
+  
+  .app-details div{
+	margin-bottom: 5px;
+  }
