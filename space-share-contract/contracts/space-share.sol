@@ -49,6 +49,8 @@ contract space_share {
     // uint DOId;
     // uint StorageContractId;
 
+    // arrays of all the Storage Owners, Data Owners and StorageContracts between them.
+
     address[] SOList;
     address[] DOList;
     bytes32[] storageContractList;
