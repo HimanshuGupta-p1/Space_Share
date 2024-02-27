@@ -24,6 +24,7 @@ const NavbarItem = ({title, props}) => (
 const Navbar = () => {
   const [toggleMenu, setToggleMenu] = useState(false);
   const {connectWallet, currentAccount, disConnectWallet} = useContext(SpaceShareContext)
+  // console.log(currentAccount);
   return (
     <nav className='w-full flex md:justify-center justify-between items-center p-4'>
       <div className='md:flex-[0.5] flex justify-start items-center text-white md:text-4xl text-xl' style = {{"font-family": "Rowdies, sans-serif"}}>
@@ -35,12 +36,12 @@ const Navbar = () => {
         ))}
         {
           !currentAccount && <li className='bg-[#2952e3] py-2 px-7 mx-4 rounded-full cursor-pointer hover:bg-[#2546bd]'>
-         <button onClick={() => connectWallet()}> Login </button> 
+         <button onClick={() => connectWallet()}> Connect </button> 
         </li>
         }
         {
           currentAccount && <li className='bg-[#2952e3] py-2 px-7 mx-4 rounded-full cursor-pointer hover:bg-[#2546bd]'>
-          <button onClick={() => disConnectWallet()}>Logout</button>
+          <button onClick={() => disConnectWallet()}> Disconnect </button>
         </li>
         }
         

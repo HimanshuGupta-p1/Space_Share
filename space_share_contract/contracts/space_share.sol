@@ -30,30 +30,11 @@ contract Space_Share {
     mapping(address => DataOwner) public DataOwnerMap;
     mapping(bytes32 => StorageContract) public StorageContractMap;
 
-    // event StorageOrderCreated(
-    //     address indexed storageOwner,
-    //     uint256 volumeGB,
-    //     uint256 pricePerGB
-    // );
-    // event StorageOrderCancelled(address indexed storageOwner);
-    // event StorageContractCreated(
-    //     address indexed dataOwner,
-    //     address indexed storageOwner,
-    //     uint256 volumeGB,
-    //     uint256 startDate
-    // );
     event StorageContractCreated(address dataOwner, address storageOwner, uint256 volumeGB, uint pricePerGB, uint256 startDate);
-    // event StorageContractCancelled(
-    //     address indexed dataOwner,
-    //     address indexed storageOwner
-    // );
-
-    // uint SOId;
-    // uint DOId;
-    // uint StorageContractId;
 
     address[] SOList;
-    address[] DOList;
+    address[] DOList;   
+    StorageOwner[] allSOList;
     bytes32[] storageContractList;
 
     error Unauthorized();
@@ -97,6 +78,7 @@ contract Space_Share {
             SOConnectionInfo
         );
         SOList.push(SO);
+        allSOList.push(StorageOwnerMap[SO]);
     }
 
     function getStorageOrder(address _SO)
@@ -106,6 +88,10 @@ contract Space_Share {
         returns (StorageOwner memory SO)
     {
         return StorageOwnerMap[_SO];
+    }
+
+    function getAllStorageOrder() view public returns (StorageOwner[] memory){
+        return allSOList;
     }
 
     function cancelStorageOrder(address SO) public isExistingStorageOwner(SO) {
@@ -120,6 +106,14 @@ contract Space_Share {
         }
         SOList[index] = SOList[SOList.length - 1];
         SOList.pop();
+        for (uint256 i = 0; i < l; i++){
+            if (SO == allSOList[i].SO){
+                index = i;
+                break;
+            }
+        }
+        allSOList[index] = allSOList[allSOList.length - 1];
+        allSOList.pop();
     }
 
     function getStorageOrderLength() public view returns (uint256) {

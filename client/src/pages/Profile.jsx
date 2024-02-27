@@ -6,12 +6,12 @@ import { SpaceShareContext } from "../context/Space_Share_Context";
 
 
 const Profile = () => {
-    const {currentAccount, isDataOwner} = useContext(SpaceShareContext);
+    const {currentAccount, isDataOwner, registerDataOwner, registerStorageOwner} = useContext(SpaceShareContext);
     const color = "purple";
-    if (currentAccount)
+    if (currentAccount && isDataOwner)
     return (
         <div className='text-white'>
-            {isDataOwner ?
+            {isDataOwner === "Yes" ?
                 <>
                     <div className='flex items-center justify-center text-center'>
                         <SiProtondrive fontSize={50} />
@@ -165,8 +165,7 @@ const Profile = () => {
             <i className="fas fa-bell" />
           </span>
           <span className="inline-block align-middle mr-8">
-            <b className="capitalize">{color}!</b> This is a {color} alert -
-            check it out!
+            <b className="capitalize">Please register as Storage Owner or Data Owner</b> 
           </span>
           <button
             className="absolute bg-transparent text-2xl font-semibold leading-none
@@ -174,6 +173,10 @@ const Profile = () => {
           >
             <span>×</span>
           </button>
+        </div>
+        <div className="flex justify-center">
+        <button className="cssbuttons-io-button m-2">Register as Storage Owner</button>
+          <button className="cssbuttons-io-button1 m-2">Register as Data Owner</button>
         </div>
     </>
     )
