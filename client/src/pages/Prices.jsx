@@ -123,6 +123,14 @@ const Prices = () => {
   const { prices, setPrices, isDataOwner } = useContext(SpaceShareContext)
 
   const [activeForm, setActiveForm] = useState(false)
+  const [activeBuyForm, setActiveBuyForm] = useState(false);
+  const [buyDetails, setBuyDetails] = useState('');
+
+  const buyStorage = (user) => {
+    setActiveBuyForm(true);
+    setBuyDetails(user);
+    console.log(user);
+  }
 
   return (
     <>
@@ -142,7 +150,7 @@ const Prices = () => {
               <th className="w-1/4 lg:w-1/5" p-2>Storage Owner</th>
               <th className="w-1/4 lg:w-1/5 p-2">Storage</th>
               <th className="w-1/4 lg:w-1/5 p-2">Price Per GB</th>
-              <th className="w-1/4 lg:w-1/5 p-2">Buy</th>
+              {isDataOwner === "Yes" && <th className="w-1/4 lg:w-1/5 p-2">Buy</th>}
             </tr>
           </thead>
           <tbody className="relative">
@@ -152,16 +160,60 @@ const Prices = () => {
                   <td className="w-1/4 lg:w-1/5 p-2">{user?.SO?.toString()}</td>
                   <td className="w-1/4 lg:w-1/5 p-2">{user?.volumeGB?.toString()}</td>
                   <td className="w-1/4 lg:w-1/5 p-2">{user?.pricePerGB?.toString()} eth/month</td>
-
-                  <td className="w-1/4 lg:w-1/5 p-2">
-                    <button className="bg-[#2952e3] py-2 px-5 mx-4 text-white rounded-full cursor-pointer hover:bg-[#2546bd]">
-                      Buy
-                    </button>
-                  </td>
+                  {isDataOwner === "Yes" &&
+                    <td className="w-1/4 lg:w-1/5 p-2">
+                      <button className="bg-[#2952e3] py-2 px-5 mx-4 text-white rounded-full cursor-pointer hover:bg-[#2546bd]"
+                      onClick={() => buyStorage(user)}>
+                        Buy
+                      </button>
+                    </td>
+                  }
                 </tr>
               ))}
           </tbody>
         </table>
+        {activeBuyForm &&
+        <div className='flex justify-center items-center m-4'>
+          <div className="ms-auto-xs">
+            <form className="blue-glassmorphism shadow-md rounded px-8 pt-6 pb-8 mb-4">
+              <div className="mb-4">
+                <label className="block text-white text-sm font-bold mb-2" htmlFor="username">
+                  DOConnectionInfo
+                </label>
+                <input className="shadow appearance-none border rounded py-2 px-3 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" placeholder="Username" />
+              </div>
+              <div className="mb-6">
+                <div className='flex justify-center text-white '>
+                  Storage Address: {buyDetails?.SO.toString()}
+                  <br/>
+                  PricePerGB: {buyDetails?.pricePerGB?.toString()}
+                  <br/>
+                  VolumeGB: {buyDetails?.volumeGB?.toString()}
+                </div>
+                {/* <label className="block text-white text-sm font-bold mb-2" htmlFor="">
+                  Password
+                </label>
+                <input className="shadow appearance-none border border-red-500 rounded py-2 px-3 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password" placeholder="******************" /> */}
+                {/* <p className="text-red-500 text-xs italic">Please choose a File Connection</p> */}
+              </div>
+              <div className="flex items-center justify-between">
+                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
+                  Sign In
+                </button>
+                <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 
+                px-4 rounded focus:outline-none focus:shadow-outline" 
+                type="button"
+                onClick={() => setActiveBuyForm(false)}>
+                  Cancel
+                </button>
+              </div>
+            </form>
+            <p className="text-center text-gray-500 text-xs">
+              &copy;2020 Acme Corp. All rights reserved.
+            </p>
+          </div>
+        </div>}
+
       </div>
     </>
   )

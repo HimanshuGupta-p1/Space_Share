@@ -29,7 +29,7 @@ const getEthereumContract = async () => {
 export const SpaceShareProvider = ({ children }) => {
 
     const [currentAccount, setCurrentAccount] = useState('')
-    const [isDataOwner, setDataOwner] = useState(null);
+    const [isDataOwner, setDataOwner] = useState("Yes");
 
     const [prices, setPrices] = useState();
 
@@ -71,6 +71,33 @@ export const SpaceShareProvider = ({ children }) => {
             console.log(transactionHash);
         } catch (error) {
             console.log(error);
+        }
+    }
+
+    const getStorageOrderByOwner = async () => {
+        try {
+            const contract = await getEthereumContract();
+            const storageOrder = await contract.getStorageOrder(currentAccount);
+            console.log(storageOrder);
+            const storageDetails = {pricePerGB: storageOrder.pricePerGB.toString(),
+                                    volumeGB: storageOrder.volumeGB.toString(),
+                                    monthlyRevenue: Number(storageOrder.pricePerGB) * Number(storageOrder.volumeGB)
+                                }
+            return storageDetails;
+        } catch (error) {
+            console.log(error);
+            return null;
+        }
+    }
+
+    const createStorageContract = async () => {
+        try {
+            const contract = await getEthereumContract();
+            const transactionHash = await contract.createStorageContract();
+            console.log(transactionHash);
+            
+        } catch (error) {
+            
         }
     }
 
@@ -153,7 +180,8 @@ export const SpaceShareProvider = ({ children }) => {
                 prices,
                 setPrices,
                 isDataOwner,
-                createStorageOrder
+                createStorageOrder,
+                getStorageOrderByOwner
             }}>
             {children}
         </SpaceShareContext.Provider>
