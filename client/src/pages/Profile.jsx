@@ -6,9 +6,11 @@ import { SpaceShareContext } from "../context/Space_Share_Context";
 
 
 const Profile = () => {
-    const {currentAccount, isDataOwner, registerDataOwner, registerStorageOwner, getStorageOrderByOwner} = useContext(SpaceShareContext);
-    const color = "purple";
+    const {currentAccount, isDataOwner, registerDataOwner, registerStorageOwner, getStorageOrderByOwner, getStorageContractByOwner} = useContext(SpaceShareContext);
     const [storageOwnerOrder, setStorageOwnerOrder] = useState('')
+    const [monthlyCost, setMonthtlyCost] = useState('')
+    const [volumeGB, setVolumeGB] = useState('')
+    const [owners, setOwners] = useState('')
     useEffect(()=> {
         async function fetchOrderDetailsByOwner(){
             if (currentAccount && isDataOwner === "No"){
@@ -18,11 +20,21 @@ const Profile = () => {
                 console.log(storageOwnerOrder);
                 }
         }
+        async function fetchContractDetailsByOwner() {
+            if (currentAccount){
+                console.log(currentAccount);
+                const getContracts = await getStorageContractByOwner();
+                setOwners(getContracts.length);
+                for(let i = 0; i < getContracts.length; i++){
+                    setMonthtlyCost(monthlyCost + getContracts[i].pricePerGB)
+                    setVolumeGB(volumeGB + getContracts[i].volumeGB)
+                }
+            }
+        }
         fetchOrderDetailsByOwner();
+        fetchContractDetailsByOwner();
     }, [currentAccount])
-    // if (currentAccount && isDataOwner === "No"){
-    //     
-    // }
+    
     if (currentAccount && isDataOwner){
         return (
             <div className='text-white'>
@@ -48,7 +60,7 @@ const Profile = () => {
                                             </div>
                                             <div>
                                                 <div className="text-gray-400">Monthly Charges</div>
-                                                <div className="text-2xl font-bold text-gray-900">1.250 WEI/month</div>
+                                                <div className="text-2xl font-bold text-gray-900">{monthlyCost} INR/month</div>
                                             </div>
                                         </div>
                                     </div>
@@ -64,7 +76,7 @@ const Profile = () => {
                                             </div>
                                             <div>
                                                 <div className="text-gray-400">Net Storage</div>
-                                                <div className="text-2xl font-bold text-gray-900">100 GB</div>
+                                                <div className="text-2xl font-bold text-gray-900">{volumeGB} GB</div>
                                             </div>
                                         </div>
                                     </div>
@@ -80,7 +92,7 @@ const Profile = () => {
                                             </div>
                                             <div>
                                                 <div className="text-gray-400">Storage Owners</div>
-                                                <div className="text-2xl font-bold text-gray-900">3</div>
+                                                <div className="text-2xl font-bold text-gray-900">{owners}</div>
                                             </div>
                                         </div>
                                     </div>

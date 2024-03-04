@@ -90,14 +90,37 @@ export const SpaceShareProvider = ({ children }) => {
         }
     }
 
-    const createStorageContract = async () => {
+    const getStorageContractByOwner = async () => {
         try {
             const contract = await getEthereumContract();
-            const transactionHash = await contract.createStorageContract();
-            console.log(transactionHash);
-            
+            if (isDataOwner === "Yes"){
+                const storageContracts = await contract.getStorageContractsByDO(currentAccount);
+                console.log(storageContracts);
+                return storageContracts;
+            } 
+            else {
+                const storageContracts = await contract.getStorageContractsBySO(currentAccount);
+                console.log(storageContracts);
+                return storageContracts;
+            }
         } catch (error) {
-            
+            console.log(error);
+        }
+    }
+
+    const createStorageContract = async (buyDetails, DOConnectionInfo) => {
+        try {
+            const contract = await getEthereumContract();
+            const transactionHash = await contract.createStorageContract(buyDetails.SO, DOConnectionInfo);
+            console.log(transactionHash);
+            if (transactionHash){
+                const contractDetails = await contract.getStorageContractsByDO(currentAccount);
+                console.log(contractDetails);
+                return true;
+            }
+            return false;
+        } catch (error) {
+            console.log(error);
         }
     }
 
@@ -181,7 +204,9 @@ export const SpaceShareProvider = ({ children }) => {
                 setPrices,
                 isDataOwner,
                 createStorageOrder,
-                getStorageOrderByOwner
+                getStorageOrderByOwner,
+                createStorageContract,
+                getStorageContractByOwner
             }}>
             {children}
         </SpaceShareContext.Provider>
