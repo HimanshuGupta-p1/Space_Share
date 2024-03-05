@@ -11,6 +11,9 @@ module.exports = {
       screens: {
         mf: "990px",
       },
+      backgroundImage: {
+        'hero': "url('../src/assets/bg.jpeg')",
+      },
       keyframes: {
         "slide-in": {
           "0%": {
@@ -31,5 +34,5 @@ module.exports = {
   variants: {
     extend: {},
   },
-  plugins: [],
+  plugins: [require("daisyui")],
 };

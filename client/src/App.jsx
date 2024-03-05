@@ -3,6 +3,7 @@ import Welcome from "./components/Welcome";
 import Profile from "./pages/Profile";
 import {BrowserRouter, Route, Routes } from 'react-router-dom'
 import Prices from "./pages/Prices";
+import About from "./pages/About"
 const App = () => {
   return (
     <BrowserRouter>
@@ -14,6 +15,7 @@ const App = () => {
           <Route path="/home" element={<Welcome/>} />
           <Route path="/prices" element={<Prices/>} />
           <Route path="/profile" element={<Profile/>} />
+          <Route path="/about" element={<About/>}/>
         </Routes>
       </div>
     </div>
