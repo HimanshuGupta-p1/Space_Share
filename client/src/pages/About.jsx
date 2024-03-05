@@ -56,8 +56,8 @@ const About = () => {
     <p>Team Member</p>
     <div>
     <SocialIcon network='github' target='_blank' url='https://github.com/Prakhar1Pandey'/>
-    <SocialIcon network='linkedin' target='_blank' url=''/>
-    <SocialIcon network='instagram' target='_blank' url=''/>
+    <SocialIcon network='linkedin' target='_blank' url='https://www.linkedin.com/in/prakhar-pandey-52b035203/'/>
+    <SocialIcon network='instagram' target='_blank' url='https://www.instagram.com/iprakharpandey/'/>
     </div>
   </div>
 </div>
