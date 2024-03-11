@@ -49,9 +49,9 @@ app.post('/login', async (req, res) => {
         }
 
         
-        const token = jwt.sign({ email: user.email }, JWT_SECRET, { expiresIn: '1h' });
+        const token = jwt.sign({ email: user.email }, JWT_SECRET, { expiresIn: "3days" });
 
-        res.status(200).json({ token });
+        res.status(200).json({ _id: user._id, email: user.email, type: user.type, metamaskId: user.metamaskId, token });
     } catch (error) {
         console.error('Error logging in:', error);
         res.status(500).json({ message: 'Internal server error' });
