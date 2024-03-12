@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
+const cors = require('cors')
 
 const app = express();
 dotenv.config();
@@ -11,6 +12,7 @@ const PORT = process.env.PORT || 3000;
 const JWT_SECRET = process.env.JWT_SECRET; 
 app.use(bodyParser.json()) 
 app.use(bodyParser.urlencoded({ extended: true }))
+app.use(cors());
 
 mongoose.connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
