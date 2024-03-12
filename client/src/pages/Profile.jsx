@@ -1,31 +1,36 @@
-
 import { SiProtondrive } from "react-icons/si";
 import { GrStorage } from "react-icons/gr";
 import { useContext, useEffect, useState } from "react";
 import { SpaceShareContext } from "../context/Space_Share_Context";
+import { Auth_Context } from "../context/Auth_Context";
 
 
 const Profile = () => {
-    const {currentAccount, isDataOwner, registerDataOwner, registerStorageOwner, getStorageOrderByOwner, getStorageContractByOwner} = useContext(SpaceShareContext);
+    const { currentAccount, isDataOwner, getStorageOrderByOwner, getStorageContractByOwner } = useContext(SpaceShareContext);
+    const { registerInfo, registerUser, updateRegisterInfo, user } = useContext(Auth_Context);
     const [storageOwnerOrder, setStorageOwnerOrder] = useState('')
     const [monthlyCost, setMonthtlyCost] = useState('')
     const [volumeGB, setVolumeGB] = useState('')
     const [owners, setOwners] = useState('')
-    useEffect(()=> {
-        async function fetchOrderDetailsByOwner(){
-            if (currentAccount && isDataOwner === "No"){
+    const [register, setRegister] = useState(false);
+    useEffect(() => {
+        async function fetchOrderDetailsByOwner() {
+            if (user && isDataOwner === "No") {
                 const getStorage = await getStorageOrderByOwner();
                 console.log(getStorage.result)
                 setStorageOwnerOrder(getStorage);
                 console.log(storageOwnerOrder);
-                }
+            }
         }
         async function fetchContractDetailsByOwner() {
-            if (currentAccount){
+            setMonthtlyCost('')
+            setVolumeGB('')
+            setOwners('')
+            if (currentAccount) {
                 console.log(currentAccount);
                 const getContracts = await getStorageContractByOwner();
                 setOwners(getContracts.length);
-                for(let i = 0; i < getContracts.length; i++){
+                for (let i = 0; i < getContracts.length; i++) {
                     setMonthtlyCost(monthlyCost + getContracts[i].pricePerGB)
                     setVolumeGB(volumeGB + getContracts[i].volumeGB)
                 }
@@ -33,9 +38,10 @@ const Profile = () => {
         }
         fetchOrderDetailsByOwner();
         fetchContractDetailsByOwner();
-    }, [currentAccount])
-    
-    if (currentAccount && isDataOwner){
+        console.log(user)
+    }, [])
+
+    if (user && isDataOwner) {
         return (
             <div className='text-white'>
                 {isDataOwner === "Yes" ?
@@ -99,6 +105,9 @@ const Profile = () => {
                                 </div>
                             </div>
                         </div>
+                        <div className="flex justify-center">
+                            <button className="bg-[#2952e3] py-2 px-5 mx-4 text-white rounded-full cursor-pointer hover:bg-[#2546bd]">Pay Monthly Charges</button>
+                        </div>
                     </>
                     :
                     <>
@@ -122,7 +131,7 @@ const Profile = () => {
                                             </div>
                                             <div>
                                                 <div className="text-gray-400">Monthly Revenue</div>
-                                                <div className="text-2xl font-bold text-gray-900">{storageOwnerOrder?.pricePerGB?.toString()} INR/month</div>
+                                                <div className="text-2xl font-bold text-gray-900">{monthlyCost} INR/month</div>
                                             </div>
                                         </div>
                                     </div>
@@ -138,7 +147,7 @@ const Profile = () => {
                                             </div>
                                             <div>
                                                 <div className="text-gray-400">Storage Rented</div>
-                                                <div className="text-2xl font-bold text-gray-900">{storageOwnerOrder.volumeGB?.toString()} GB</div>
+                                                <div className="text-2xl font-bold text-gray-900">{volumeGB} GB</div>
                                             </div>
                                         </div>
                                     </div>
@@ -154,7 +163,7 @@ const Profile = () => {
                                             </div>
                                             <div>
                                                 <div className="text-gray-400">Data Owners</div>
-                                                <div className="text-2xl font-bold text-gray-900">3</div>
+                                                <div className="text-2xl font-bold text-gray-900">{owners}</div>
                                             </div>
                                         </div>
                                     </div>
@@ -169,46 +178,111 @@ const Profile = () => {
                                             </div>
                                             <div>
                                                 <div className="text-gray-400">Total Earnings</div>
-                                                <div className="text-2xl font-bold text-gray-900">{storageOwnerOrder.monthlyRevenue}</div>
+                                                <div className="text-2xl font-bold text-gray-900">{monthlyCost * volumeGB}</div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        
+                        <div className="flex justify-center items-center">
+                            <div className="flex justify-center items-center float-left blue-glassmorphism text-white">
+                                <div className="lg:p-16 sm:p-2">
+                                    <h1 className="lg:text-3xl sm:text-xl"> Storage Orders By Owner</h1>
+                                </div>
+                                <div className="lg:p-16 sm:p-2 lg:text-lg sm:text-2xs">
+                                    MetamaskID: {storageOwnerOrder?.address}
+                                    <br/>
+                                    Monthly Cost: {storageOwnerOrder?.pricePerGB}
+                                    <br />
+                                    Volume GB: {storageOwnerOrder?.volumeGB}
+                                    <br />
+                                    Connection Info: {storageOwnerOrder?.connectionInfo}
+                                </div>
+
+                            </div>
+                        </div>
+
+
                     </>
                 }
             </div>
         )
     }
-    else 
+    else
         return (
-    <>
-        <div
-          className={
-            "text-white px-6 py-4 border-0 rounded relative mb-4 bg-purple-500"
-          }
-        >
-          <span className="text-xl inline-block mr-5 align-middle">
-            <i className="fas fa-bell" />
-          </span>
-          <span className="inline-block align-middle mr-8">
-            <b className="capitalize">Please register as Storage Owner or Data Owner</b> 
-          </span>
-          <button
-            className="absolute bg-transparent text-2xl font-semibold leading-none
+            <>
+                <div
+                    className={
+                        "text-white px-6 py-4 border-0 rounded relative mb-4 bg-purple-500"
+                    }
+                >
+                    <span className="text-xl inline-block mr-5 align-middle">
+                        <i className="fas fa-bell" />
+                    </span>
+                    <span className="inline-block align-middle mr-8">
+                        <b className="capitalize">Please register as Storage Owner or Data Owner</b>
+                    </span>
+                    <button
+                        className="absolute bg-transparent text-2xl font-semibold leading-none
              right-0 top-0 mt-4 mr-6 outline-none focus:outline-none"
-          >
-            <span>×</span>
-          </button>
-        </div>
-        <div className="flex justify-center">
-        <button className="cssbuttons-io-button m-2">Register as Storage Owner</button>
-          <button className="cssbuttons-io-button1 m-2">Register as Data Owner</button>
-        </div>
-    </>
-    )
+                    >
+                        <span>×</span>
+                    </button>
+                </div>
+                <div className="flex justify-center">
+                    <button className="cssbuttons-io-button m-2" onClick={() => { setRegister(true); updateRegisterInfo({ ...registerInfo, type: 'storage' }) }} >Register as Storage Owner</button>
+                    <button className="cssbuttons-io-button1 m-2" onClick={() => { setRegister(true); updateRegisterInfo({ ...registerInfo, type: 'data' }) }}>Register as Data Owner</button>
+                </div>
+                {register &&
+                    <div className='flex justify-center items-center m-4'>
+                        <div className="ms-auto-xs">
+                            <form className="blue-glassmorphism shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={registerUser}>
+                                <div className="mb-4">
+                                    <label className="block text-white text-sm font-bold mb-2" htmlFor="username">
+                                        Metamask ID
+                                    </label>
+                                    <input className="shadow appearance-none border rounded py-2 px-3 
+                                        leading-tight focus:outline-none focus:shadow-outline bg-white"
+                                        id="username" type="text" placeholder="MetamaskID"
+                                        onChange={(e) => updateRegisterInfo({ ...registerInfo, metamaskID: e.target.value })} />
+                                </div>
+                                <div className="mb-4">
+                                    <label className="block text-white text-sm font-bold mb-2" htmlFor="email">
+                                        Email ID
+                                    </label>
+                                    <input className="shadow appearance-none border rounded py-2 px-3 
+                                        leading-tight focus:outline-none focus:shadow-outline bg-white"
+                                        id="email" type="email" placeholder="email"
+                                        onChange={(e) => updateRegisterInfo({ ...registerInfo, email: e.target.value })} />
+                                </div>
+                                <div className="mb-4">
+                                    <label className="block text-white text-sm font-bold mb-2" htmlFor="password">
+                                        Password
+                                    </label>
+                                    <input className="shadow appearance-none border
+                                        rounded py-2 px-3 mb-3 leading-tight focus:outline-none focus:shadow-outline bg-white"
+                                        id="password" type="password"
+                                        placeholder="******************"
+                                        onChange={(e) => updateRegisterInfo({ ...registerInfo, password: e.target.value })} />
+                                </div>
+                                <div className="flex items-center justify-center">
+                                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold 
+                                        py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                                        type="submit">
+                                        Register / Login
+                                    </button>
+                                    {/* <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 
+                                        px-4 rounded focus:outline-none focus:shadow-outline"
+                                        type="button">
+                                        Cancel
+                                    </button> */}
+                                </div>
+                            </form>
+                        </div>
+                    </div>}
+            </>
+        )
 }
 
 export default Profile

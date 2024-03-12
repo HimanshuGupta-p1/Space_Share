@@ -4,9 +4,11 @@ import Profile from "./pages/Profile";
 import {BrowserRouter, Route, Routes } from 'react-router-dom'
 import Prices from "./pages/Prices";
 import About from "./pages/About"
+import { Auth_ContextProvider } from "./context/Auth_Context";
 const App = () => {
   return (
     <BrowserRouter>
+    <Auth_ContextProvider>
     <div className='min-h-screen gradient-bg-welcome'>
       <div className="">
         <Navbar/>
@@ -19,6 +21,7 @@ const App = () => {
         </Routes>
       </div>
     </div>
+    </Auth_ContextProvider>
     </BrowserRouter>
   )
 }

@@ -1,10 +1,12 @@
 import { ethers } from 'ethers'
 
 import { contractABI, contractAddress } from '../utils/constants'
-import { createContext, useState, useEffect } from 'react'
+import { createContext, useState, useEffect, useContext } from 'react'
+import { Auth_Context } from './Auth_Context';
 
 export const SpaceShareContext = createContext();
 const { ethereum } = window;
+
 
 const getEthereumContract = async () => {
     if (!window.ethereum) {
@@ -29,7 +31,7 @@ const getEthereumContract = async () => {
 export const SpaceShareProvider = ({ children }) => {
 
     const [currentAccount, setCurrentAccount] = useState('')
-    const [isDataOwner, setDataOwner] = useState("Yes");
+    const [isDataOwner, setDataOwner] = useState("No");
 
     const [prices, setPrices] = useState();
 
@@ -79,9 +81,11 @@ export const SpaceShareProvider = ({ children }) => {
             const contract = await getEthereumContract();
             const storageOrder = await contract.getStorageOrder(currentAccount);
             console.log(storageOrder);
-            const storageDetails = {pricePerGB: storageOrder.pricePerGB.toString(),
+            const storageDetails = {address: storageOrder.SO,
+                                    pricePerGB: storageOrder.pricePerGB.toString(),
                                     volumeGB: storageOrder.volumeGB.toString(),
-                                    monthlyRevenue: Number(storageOrder.pricePerGB) * Number(storageOrder.volumeGB)
+                                    monthlyRevenue: Number(storageOrder.pricePerGB) * Number(storageOrder.volumeGB),
+                                    connectionInfo: storageOrder.SOConnectionInfo
                                 }
             return storageDetails;
         } catch (error) {
