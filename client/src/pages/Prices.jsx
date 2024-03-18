@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import { SpaceShareContext } from '../context/Space_Share_Context';
 
-const Registration = () => {
+const Registration = ({setActiveForm}) => {
   const {createStorageOrder } = useContext(SpaceShareContext)
   const [storageAddress, setStorageAddress] = useState('')
   const [Capacity, setCapacity] = useState('')
@@ -91,12 +91,12 @@ const Registration = () => {
             </div>
           </div>
           <div className="flex items-center justify-end mt-4">
-            <a
+            <button
               className="text-sm text-gray-600 underline hover:text-gray-900"
-              href="#"
+              onClick={() => setActiveForm(false)}
             >
               Cancel
-            </a>
+            </button>
             <button
               type="button"
               className="inline-flex items-center px-4 py-2 ml-4 text-xs
@@ -147,7 +147,7 @@ const Prices = () => {
         </button>
         }
         <div className='flex justify-center'>
-          {activeForm && <Registration />}
+          {activeForm && <Registration setActiveForm = {setActiveForm} />}
         </div>
         <div className='p-4'></div>
         <table className="min-w-full table-auto blue-glassmorphism border text-white">
