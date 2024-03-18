@@ -4,6 +4,7 @@ import Profile from "./pages/Profile";
 import {BrowserRouter, Route, Routes } from 'react-router-dom'
 import Prices from "./pages/Prices";
 import About from "./pages/About"
+import Manage_Folder from "./pages/Manage_Folder";
 import { Auth_ContextProvider } from "./context/Auth_Context";
 import { SpaceShareProvider } from "./context/Space_Share_Context";
 const App = () => {
@@ -20,6 +21,7 @@ const App = () => {
           <Route path="/prices" element={<Prices/>} />
           <Route path="/profile" element={<Profile/>} />
           <Route path="/about" element={<About/>}/>
+          <Route path={`/manage folder`} element={<Manage_Folder/>}/>
         </Routes>
       </div>
     </div>
