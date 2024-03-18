@@ -15,7 +15,7 @@ export const Auth_ContextProvider = ({children}) => {
 
     useEffect(() => {
         const User = localStorage.getItem("User")
-        setUser(User.data);
+        setUser(JSON.parse(User));
         console.log(user)
     }, []);
 
@@ -37,7 +37,12 @@ export const Auth_ContextProvider = ({children}) => {
 
     const updateRegisterInfo = useCallback((info) => {
         setRegisterInfo(info);
-    }, [])
+    }, []);
+
+    const logoutUser = () => {
+        localStorage.removeItem("User");
+        setUser(null);
+    }
 
     return (
         <Auth_Context.Provider
@@ -45,6 +50,7 @@ export const Auth_ContextProvider = ({children}) => {
             registerInfo,
             registerUser,
             updateRegisterInfo,
+            logoutUser,
             user
         }}>
             {children}

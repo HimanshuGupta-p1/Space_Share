@@ -31,7 +31,7 @@ const getEthereumContract = async () => {
 export const SpaceShareProvider = ({ children }) => {
 
     const [currentAccount, setCurrentAccount] = useState('')
-    const [isDataOwner, setDataOwner] = useState("No");
+    const [isDataOwner, setDataOwner] = useState(null);
 
     const [prices, setPrices] = useState();
 
@@ -59,7 +59,7 @@ export const SpaceShareProvider = ({ children }) => {
         try {
             const contract = await getEthereumContract();
             const storageOrders = await contract.getAllStorageOrder();
-            console.log(storageOrders[0].pricePerGB, storageOrders[0].SO, storageOrders[0].volumeGB);
+            // console.log(storageOrders[0].pricePerGB, storageOrders[0].SO, storageOrders[0].volumeGB);
             setPrices(storageOrders);
         } catch (error) {
             console.log(error);
@@ -80,13 +80,14 @@ export const SpaceShareProvider = ({ children }) => {
         try {
             const contract = await getEthereumContract();
             const storageOrder = await contract.getStorageOrder(currentAccount);
-            console.log(storageOrder);
-            const storageDetails = {address: storageOrder.SO,
-                                    pricePerGB: storageOrder.pricePerGB.toString(),
-                                    volumeGB: storageOrder.volumeGB.toString(),
-                                    monthlyRevenue: Number(storageOrder.pricePerGB) * Number(storageOrder.volumeGB),
-                                    connectionInfo: storageOrder.SOConnectionInfo
-                                }
+            // console.log(storageOrder);
+            const storageDetails = {
+                address: storageOrder.SO,
+                pricePerGB: storageOrder.pricePerGB.toString(),
+                volumeGB: storageOrder.volumeGB.toString(),
+                monthlyRevenue: Number(storageOrder.pricePerGB) * Number(storageOrder.volumeGB),
+                connectionInfo: storageOrder.SOConnectionInfo
+            }
             return storageDetails;
         } catch (error) {
             console.log(error);
@@ -97,11 +98,11 @@ export const SpaceShareProvider = ({ children }) => {
     const getStorageContractByOwner = async () => {
         try {
             const contract = await getEthereumContract();
-            if (isDataOwner === "Yes"){
+            if (isDataOwner === "Yes") {
                 const storageContracts = await contract.getStorageContractsByDO(currentAccount);
                 console.log(storageContracts);
                 return storageContracts;
-            } 
+            }
             else {
                 const storageContracts = await contract.getStorageContractsBySO(currentAccount);
                 console.log(storageContracts);
@@ -117,7 +118,7 @@ export const SpaceShareProvider = ({ children }) => {
             const contract = await getEthereumContract();
             const transactionHash = await contract.createStorageContract(buyDetails.SO, DOConnectionInfo);
             console.log(transactionHash);
-            if (transactionHash){
+            if (transactionHash) {
                 const contractDetails = await contract.getStorageContractsByDO(currentAccount);
                 console.log(contractDetails);
                 return true;
@@ -196,6 +197,16 @@ export const SpaceShareProvider = ({ children }) => {
     useEffect(() => {
         checkWalletIsConnected();
         getAllStorageOrders();
+        const user = JSON.parse(localStorage.getItem("User"));
+        if (user) {
+            console.log(user)
+            if (user?.data?.type === "data")
+                setDataOwner("Yes");
+            else if (user?.data?.type === "storage")
+                setDataOwner("No")
+            else
+                setDataOwner(null);
+        }
     }, []);
 
     return (

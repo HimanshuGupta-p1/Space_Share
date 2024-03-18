@@ -5,10 +5,12 @@ import {BrowserRouter, Route, Routes } from 'react-router-dom'
 import Prices from "./pages/Prices";
 import About from "./pages/About"
 import { Auth_ContextProvider } from "./context/Auth_Context";
+import { SpaceShareProvider } from "./context/Space_Share_Context";
 const App = () => {
   return (
     <BrowserRouter>
     <Auth_ContextProvider>
+      <SpaceShareProvider>
     <div className='min-h-screen gradient-bg-welcome'>
       <div className="">
         <Navbar/>
@@ -21,6 +23,7 @@ const App = () => {
         </Routes>
       </div>
     </div>
+    </SpaceShareProvider>
     </Auth_ContextProvider>
     </BrowserRouter>
   )

@@ -7,43 +7,49 @@ import { Auth_Context } from "../context/Auth_Context";
 
 const Profile = () => {
     const { currentAccount, isDataOwner, getStorageOrderByOwner, getStorageContractByOwner } = useContext(SpaceShareContext);
-    const { registerInfo, registerUser, updateRegisterInfo, user } = useContext(Auth_Context);
+    const { registerInfo, registerUser, updateRegisterInfo, logoutUser, user } = useContext(Auth_Context);
     const [storageOwnerOrder, setStorageOwnerOrder] = useState('')
     const [monthlyCost, setMonthtlyCost] = useState('')
     const [volumeGB, setVolumeGB] = useState('')
-    const [owners, setOwners] = useState('')
+    const [owners, setOwners] = useState(0)
     const [register, setRegister] = useState(false);
+
+    async function fetchOrderDetailsByOwner() {
+        if (user && isDataOwner === "No") {
+            const getStorage = await getStorageOrderByOwner();
+            // console.log(getStorage.result)
+            setStorageOwnerOrder(getStorage);
+            // console.log(storageOwnerOrder);
+        }
+    }
+    async function fetchContractDetailsByOwner() {
+        if (currentAccount) {
+            // console.log(currentAccount);
+            const getContracts = await getStorageContractByOwner();
+            setOwners(getContracts.length);
+            for (let i = 0; i < getContracts.length; i++) {
+                setMonthtlyCost(monthlyCost + getContracts[i].pricePerGB)
+                setVolumeGB(volumeGB + getContracts[i].volumeGB)
+            }
+        }
+    }
     useEffect(() => {
-        async function fetchOrderDetailsByOwner() {
-            if (user && isDataOwner === "No") {
-                const getStorage = await getStorageOrderByOwner();
-                console.log(getStorage.result)
-                setStorageOwnerOrder(getStorage);
-                console.log(storageOwnerOrder);
-            }
-        }
-        async function fetchContractDetailsByOwner() {
-            setMonthtlyCost('')
-            setVolumeGB('')
-            setOwners('')
-            if (currentAccount) {
-                console.log(currentAccount);
-                const getContracts = await getStorageContractByOwner();
-                setOwners(getContracts.length);
-                for (let i = 0; i < getContracts.length; i++) {
-                    setMonthtlyCost(monthlyCost + getContracts[i].pricePerGB)
-                    setVolumeGB(volumeGB + getContracts[i].volumeGB)
-                }
-            }
-        }
         fetchOrderDetailsByOwner();
         fetchContractDetailsByOwner();
-        console.log(user)
-    }, [])
+        // console.log(user)
+    }, [currentAccount]);
+
+    const signOut = () => {
+        setStorageOwnerOrder(null);
+        setMonthtlyCost('');
+        setOwners('');
+        setVolumeGB('');
+        logoutUser();
+    }
 
     if (user && isDataOwner) {
         return (
-            <div className='text-white'>
+            <div className='text-white text-center'>
                 {isDataOwner === "Yes" ?
                     <>
                         <div className='flex items-center justify-center text-center'>
@@ -60,7 +66,7 @@ const Profile = () => {
                                             <div>
                                                 <div className="flex items-center justify-center w-12 h-12 rounded-full bg-fuchsia-50 text-fuchsia-400">
                                                     <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path d="M17.3333 9.33334H28M28 9.33334V20M28 9.33334L17.3333 20L12 14.6667L4 22.6667" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                        <path d="M17.3333 9.33334H28M28 9.33334V20M28 9.33334L17.3333 20L12 14.6667L4 22.6667" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path>
                                                     </svg>
                                                 </div>
                                             </div>
@@ -76,7 +82,7 @@ const Profile = () => {
                                                 <div className="flex items-center justify-center w-12 h-12 rounded-full bg-cyan-50 text-cyan-400">
                                                     <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                         <path d="M8.52325 6.61231C10.2911 5.20443 12.4206 4.32434 14.6667 4.07333V17.3333H27.9267C27.6757 19.5794 26.7956 21.7089 25.3877 23.4767C23.9798 25.2446 22.1013 26.5791 19.9685 27.3265C17.8357 28.0739 15.5351 28.2039 13.3317 27.7015C11.1282 27.1991 9.11142 26.0847 7.51336 24.4866C5.91529 22.8886 4.80094 20.8718 4.29854 18.6683C3.79614 16.4649 3.92612 14.1643 4.67352 12.0315C5.42092 9.89866 6.75535 8.0202 8.52325 6.61231Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-                                                        <path d="M20 12H27.3173C26.7188 10.3128 25.7513 8.78047 24.4854 7.5146C23.2195 6.24873 21.6872 5.28125 20 4.68268V12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                        <path d="M20 12H27.3173C26.7188 10.3128 25.7513 8.78047 24.4854 7.5146C23.2195 6.24873 21.6872 5.28125 20 4.68268V12Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path>
                                                     </svg>
                                                 </div>
                                             </div>
@@ -190,15 +196,19 @@ const Profile = () => {
                                 <div className="lg:p-16 sm:p-2">
                                     <h1 className="lg:text-3xl sm:text-xl"> Storage Orders By Owner</h1>
                                 </div>
+                                {storageOwnerOrder ?
                                 <div className="lg:p-16 sm:p-2 lg:text-lg sm:text-2xs">
-                                    MetamaskID: {storageOwnerOrder?.address}
-                                    <br/>
-                                    Monthly Cost: {storageOwnerOrder?.pricePerGB}
-                                    <br />
-                                    Volume GB: {storageOwnerOrder?.volumeGB}
-                                    <br />
-                                    Connection Info: {storageOwnerOrder?.connectionInfo}
-                                </div>
+                                MetamaskID: {storageOwnerOrder?.address}
+                                <br/>
+                                Monthly Cost: {storageOwnerOrder?.pricePerGB}
+                                <br />
+                                Volume GB: {storageOwnerOrder?.volumeGB}
+                                <br />
+                                Connection Info: {storageOwnerOrder?.connectionInfo}
+                            </div>:
+                            <div className="lg:p-16 sm:p-2 lg:text-lg sm:text-2xs">
+                                No Storage Orders
+                                </div>}
 
                             </div>
                         </div>
@@ -206,6 +216,9 @@ const Profile = () => {
 
                     </>
                 }
+                <button className="bg-red-500 hover:bg-red-700 text-white font-bold m-4
+                                        py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                                        onClick={signOut}>Sign Out</button>
             </div>
         )
     }
