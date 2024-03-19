@@ -31,7 +31,7 @@ export const Auth_ContextProvider = ({children}) => {
         }
         localStorage.setItem("User", JSON.stringify(response));
         console.log(response.data);
-        setUser(response.data);
+        setUser(response);
 
     }, [registerInfo]);
 

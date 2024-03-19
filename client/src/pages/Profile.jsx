@@ -45,6 +45,7 @@ const Profile = () => {
         setOwners('');
         setVolumeGB('');
         logoutUser();
+        window.location.reload();
     }
 
     if (user && isDataOwner) {
