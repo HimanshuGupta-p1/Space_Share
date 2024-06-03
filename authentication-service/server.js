@@ -12,6 +12,7 @@ const PORT = process.env.PORT || 3000;
 const JWT_SECRET = process.env.JWT_SECRET; 
 app.use(bodyParser.json()) 
 app.use(bodyParser.urlencoded({ extended: true }))
+
 app.use(cors());
 
 mongoose.connect(process.env.MONGO_URI, {
