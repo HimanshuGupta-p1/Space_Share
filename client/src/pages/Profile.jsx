@@ -37,7 +37,7 @@ const Profile = () => {
         fetchOrderDetailsByOwner();
         fetchContractDetailsByOwner();
         // console.log(user)
-    }, [currentAccount]);
+    }, [currentAccount, user]);
 
     const signOut = () => {
         setStorageOwnerOrder(null);
@@ -259,7 +259,7 @@ const Profile = () => {
                                     <input className="shadow appearance-none border rounded py-2 px-3 
                                         leading-tight focus:outline-none focus:shadow-outline bg-white"
                                         id="username" type="text" placeholder="MetamaskID"
-                                        onChange={(e) => updateRegisterInfo({ ...registerInfo, metamaskID: e.target.value })} />
+                                        onChange={(e) => updateRegisterInfo({ ...registerInfo, metamaskId: e.target.value })} />
                                 </div>
                                 <div className="mb-4">
                                     <label className="block text-white text-sm font-bold mb-2" htmlFor="email">

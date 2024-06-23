@@ -1,37 +1,20 @@
-import express from 'express';
-import {Server} from 'socket.io';
-import cors from 'cors';
-import { createServer } from 'http';
+const express = require('express');
+const path = require('path');
+const fileRoute = require('./routes/file');
+const cors = require('cors');
+require('./db/db');
 
 const app = express();
-
-app.use(cors());
 app.use(express.json());
-const server = createServer(app);
+app.use(cors());
 
-const io = new Server(server);
-const PORT = process.env.PORT || 3000;
+app.use(express.static(path.join(__dirname, '..', 'build')));
+app.use(fileRoute);
 
-server.listen(PORT, (req, res) => {
-    console.log("Server listening on the PORT", PORT);
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', 'build', 'index.html'));
 });
 
-let onlineUsers = [];
-
-io.on('connection', (socket) => {
-    console.log("socket Id", socket.id);
-    socket.on("adduser", (userId) => {
-        !onlineUsers.some(user => user.userId === userId) &&
-        onlineUsers.push({
-            userId,
-            socketId: socket.id,
-        });
-        console.log("onlineUsers",onlineUsers);
-    });
-
-
-    socket.on("disconnect", () => {
-        onlineUsers = onlineUsers.filter((user) => user.socketId !== socket.id);
-    });
-})
-
+app.listen(3030, () => {
+  console.log('server started on port 3030');
+});
